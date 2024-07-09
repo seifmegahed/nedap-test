@@ -20,8 +20,8 @@ export default function GnomePage() {
       </div>
     );
   return (
-    <div className="w-full grid gap-2 grid-cols-2 p-10">
-      <div className="p-3 text-5xl">
+    <div className="w-full grid gap-2 md:grid-cols-2 p-10">
+      <div className="p-3 text-5xl flex flex-col gap-5">
         <p>
           <strong>{data.name}</strong>
         </p>
@@ -30,29 +30,38 @@ export default function GnomePage() {
         <p>height: {data.height}</p>
         <p>Hair Color: {data.hair_color}</p>
         <div>
-          <p>
+          <p className="mb-3">
             <strong>Professions:</strong>
           </p>
-          <div className="pl-5">
+          <div className="pl-5 flex flex-col gap-5">
             {data.professions.map((profession) => (
               <p key={profession}>{profession}</p>
             ))}
           </div>
         </div>
         <div>
-          <p>
+          <p className="mb-3">
             <strong>Friends:</strong>
           </p>
-          <div className="pl-5">
+          <div className="pl-5 flex flex-col gap-5">
             {data.friends.map((friend) => (
-              <a href={`/gnomes/${getIdByName(friend)}`} key={friend} className="underline text-blue-400">
+              <a
+                key={friend}
+                href={`/gnomes/${getIdByName(friend)}`}
+                className="underline text-blue-400"
+              >
                 {friend}
               </a>
             ))}
           </div>
         </div>
       </div>
-      <img src={data.thumbnail} className="object-cover w-full aspect-square" />
+      <div className="w-full flex items-center">
+        <img
+          src={data.thumbnail}
+          className="object-cover w-full aspect-square"
+        />
+      </div>
     </div>
   );
 }
