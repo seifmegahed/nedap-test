@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GnomeDataType } from "../GlobalTypes";
 import JsonData from "../data/data.json";
+import { getIdByName } from "../data/dataMap";
 
 export default function GnomePage() {
   const { id } = useParams();
   const [data, setData] = useState<GnomeDataType>();
   useEffect(() => {
     setData(
-      JsonData.Brastlewark.filter((gnome) => gnome.id === Number(id))[0] ?? undefined
+      JsonData.Brastlewark.filter((gnome) => gnome.id === Number(id))[0] ??
+        undefined
     );
   }, [id]);
   if (data === undefined)
@@ -28,7 +30,9 @@ export default function GnomePage() {
         <p>height: {data.height}</p>
         <p>Hair Color: {data.hair_color}</p>
         <div>
-          <p>Profession:</p>
+          <p>
+            <strong>Professions:</strong>
+          </p>
           <div className="pl-5">
             {data.professions.map((profession) => (
               <p key={profession}>{profession}</p>
@@ -36,10 +40,14 @@ export default function GnomePage() {
           </div>
         </div>
         <div>
-          <p>Friends:</p>
-          <div className="pr-5">
+          <p>
+            <strong>Friends:</strong>
+          </p>
+          <div className="pl-5">
             {data.friends.map((friend) => (
-              <p key={friend}>{friend}</p>
+              <a href={`/gnomes/${getIdByName(friend)}`} key={friend} className="underline text-blue-400">
+                {friend}
+              </a>
             ))}
           </div>
         </div>
