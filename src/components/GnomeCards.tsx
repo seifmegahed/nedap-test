@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import JsonData from "../data/data.json";
 import Gnome from "./GnomeCard";
 import { GnomeDataType } from "../GlobalTypes";
@@ -12,27 +12,29 @@ export default function GnomeCards() {
 
   const filteredContent = useMemo<GnomeDataType[]>(() => {
     if (searchKey === "") return brastlewark;
+    setPageIndex(1);
     return brastlewark.filter((gnome) => {
-      return gnome.name.toLowerCase().includes(searchKey.toLowerCase());
+      return (
+        gnome.name.toLowerCase().includes(searchKey.toLowerCase()) ||
+        (gnome.professions.length &&
+          gnome.professions
+            ?.reduce((prev, current) => (prev += current.toLowerCase()))
+            ?.includes(searchKey.toLowerCase()))
+      );
     });
   }, [searchKey]);
 
-  const pageContent = useMemo(
-    () =>
-      filteredContent.slice(
-        (pageIndex - 1) * contentPerPage,
-        pageIndex * contentPerPage
-      ),
-    [pageIndex, filteredContent]
-  );
+  const pageContent = useMemo(() => {
+    return filteredContent.slice(
+      (pageIndex - 1) * contentPerPage,
+      pageIndex * contentPerPage
+    );
+  }, [pageIndex, filteredContent]);
 
   const numberOfPages = useMemo(
     () => Math.ceil(filteredContent.length / contentPerPage),
     [filteredContent]
   );
-  useEffect(() => {
-    console.log(pageIndex);
-  }, [pageIndex]);
 
   return (
     <div className="w-full h-full">
