@@ -17,9 +17,9 @@ export default function GnomeCards() {
       return (
         gnome.name.toLowerCase().includes(searchKey.toLowerCase()) ||
         (gnome.professions.length &&
-          gnome.professions
-            ?.reduce((prev, current) => (prev += current.toLowerCase()))
-            ?.includes(searchKey.toLowerCase()))
+          gnome.professions.some((value) =>
+            value.toLowerCase().includes(searchKey)
+          ))
       );
     });
   }, [searchKey]);
@@ -58,22 +58,24 @@ export default function GnomeCards() {
       </div>
       <div className="flex gap-4 w-full items-center justify-center p-10">
         <button
-          className={`p-5 rounded text-xl ${
-            pageIndex !== 1 && "hover:bg-gray-300"
-          } bg-gray-50`}
+          className={`py-3 rounded text-xl ${
+            pageIndex !== 1 ? "hover:bg-gray-300 bg-gray-50" : " bg-gray-200"
+          }  w-32`}
           disabled={pageIndex === 1}
           onClick={() => setPageIndex((prev) => prev - 1)}
         >
           Prev
         </button>
         <button
-          className={`p-5 rounded text-xl ${
-            pageIndex !== numberOfPages && "hover:bg-gray-300"
-          } bg-gray-50`}
+          className={`py-3 rounded text-xl ${
+            pageIndex !== numberOfPages
+              ? "hover:bg-gray-300 bg-gray-50"
+              : " bg-gray-200"
+          }  w-32`}
           disabled={pageIndex === numberOfPages}
           onClick={() => setPageIndex((prev) => prev + 1)}
         >
-          next
+          Next
         </button>
       </div>
     </div>
