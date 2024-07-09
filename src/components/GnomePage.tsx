@@ -8,7 +8,7 @@ export default function GnomePage() {
   const [data, setData] = useState<GnomeDataType>();
   useEffect(() => {
     setData(
-      JsonData.Brastlewark.filter((gnome) => gnome.id !== Number(id))[0] ?? null
+      JsonData.Brastlewark.filter((gnome) => gnome.id === Number(id))[0] ?? undefined
     );
   }, [id]);
   if (data === undefined)
@@ -26,7 +26,7 @@ export default function GnomePage() {
         <p>age: {data.age}</p>
         <p>weight: {data.weight}</p>
         <p>height: {data.height}</p>
-        <p>hair_color: {data.hair_color}</p>
+        <p>Hair Color: {data.hair_color}</p>
         <div>
           <p>Profession:</p>
           <div className="pl-5">
