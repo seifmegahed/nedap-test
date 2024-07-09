@@ -6,16 +6,15 @@ export default function Gnome(props: { data: GnomeDataType }) {
   const navigate = useNavigate();
   return (
     <div
-      className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
+      className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer hover:scale-[101%] transition-all duration-500 ease-in-out hover:-translate-y-1"
       onClick={() => navigate(`gnomes/${data.id}`)}
     >
       <img src={data.thumbnail} className="object-cover w-full aspect-square" />
       <div className="p-3">
-        <p>
+        <p className="text-xl">
           <strong>{data.name}</strong>
         </p>
         <p>age: {data.age}</p>
-        <p>weight: {data.weight}</p>
       </div>
     </div>
   );
