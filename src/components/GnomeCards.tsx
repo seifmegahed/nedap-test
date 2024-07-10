@@ -23,12 +23,14 @@ export default function GnomeCards() {
     );
   }, [searchKey]);
 
-  const pageContent = useMemo(() => {
-    return filteredContent.slice(
-      (pageIndex - 1) * contentPerPage,
-      pageIndex * contentPerPage
-    );
-  }, [pageIndex, filteredContent]);
+  const pageContent = useMemo(
+    () =>
+      filteredContent.slice(
+        (pageIndex - 1) * contentPerPage,
+        pageIndex * contentPerPage
+      ),
+    [pageIndex, filteredContent]
+  );
 
   const numberOfPages = useMemo(
     () => Math.ceil(filteredContent.length / contentPerPage),
