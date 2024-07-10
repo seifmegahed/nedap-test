@@ -13,15 +13,14 @@ export default function GnomeCards() {
   const filteredContent = useMemo<GnomeDataType[]>(() => {
     if (searchKey === "") return brastlewark;
     setPageIndex(1);
-    return brastlewark.filter((gnome) => {
-      return (
+    return brastlewark.filter(
+      (gnome) =>
         gnome.name.toLowerCase().includes(searchKey.toLowerCase()) ||
         (gnome.professions.length &&
           gnome.professions.some((value) =>
             value.toLowerCase().includes(searchKey)
           ))
-      );
-    });
+    );
   }, [searchKey]);
 
   const pageContent = useMemo(() => {
@@ -45,11 +44,9 @@ export default function GnomeCards() {
           value={searchKey}
           onChange={(e) => setSearchKey(e.target.value)}
         />
-        <div>
-          <p className="text-xl">
-            <strong>{`Page ${pageIndex} of ${numberOfPages}`}</strong>
-          </p>
-        </div>
+        <p className="text-xl">
+          <strong>{`Page ${pageIndex} of ${numberOfPages}`}</strong>
+        </p>
       </div>
       <div className="w-full h-full grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 px-10 gap-5">
         {pageContent.map((gnome) => (
